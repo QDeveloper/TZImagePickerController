@@ -135,6 +135,26 @@
 }
 
 - (void)selectPhotoButtonClick:(UIButton *)sender {
+    if (self.model.fileSize == 0) {
+        PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+        options.resizeMode = PHImageRequestOptionsResizeModeFast;
+        options.networkAccessAllowed = YES;
+        if (self.model.type == TZAssetModelMediaTypePhotoGif) {
+            options.version = PHImageRequestOptionsVersionOriginal;
+        }
+        TZAssetCell * __weak weakSelf = self;
+        [[PHImageManager defaultManager] requestImageDataForAsset:self.model.asset options:options resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+            if (weakSelf) {
+                weakSelf.model.fileSize = imageData.length;
+                [weakSelf selectPhotoButtonClickResult:sender];
+            }
+        }];
+        return;
+    }
+    [self selectPhotoButtonClickResult:sender];
+}
+
+- (void)selectPhotoButtonClickResult:(UIButton *)sender {
     if (self.didSelectPhotoBlock) {
         self.didSelectPhotoBlock(sender.isSelected);
     }
@@ -168,6 +188,7 @@
     }
     
     _bigImageRequestID = [[TZImageManager manager] requestImageDataForAsset:_model.asset completion:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+        self.model.fileSize = imageData.length;
         [self hideProgressView];
     } progressHandler:^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         if (self.model.isSelected) {

@@ -44,6 +44,9 @@
 /// Default is 9 / 默认最大可选9张图片
 @property (nonatomic, assign) NSInteger maxImagesCount;
 
+/// Default is Max  / 默认最大可选择图片的体积
+@property (nonatomic, assign) NSUInteger   maxImagesValume;
+
 /// The minimum count photos user must pick, Default is 0
 /// 最小照片必选张数,默认是0
 @property (nonatomic, assign) NSInteger minImagesCount;

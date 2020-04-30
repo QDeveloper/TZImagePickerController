@@ -567,8 +567,14 @@ static CGFloat itemMargin = 5;
             }
             [UIView showOscillatoryAnimationWithLayer:strongLayer type:TZOscillatoryAnimationToSmaller];
         } else {
-            // 2. select:check if over the maxImagesCount / 选择照片,检查是否超过了最大个数的限制
-            if (tzImagePickerVc.selectedModels.count < tzImagePickerVc.maxImagesCount) {
+            // 2. select:check if over the maxImagesCount
+            // 选择照片,检查是否超过了最大个数的限制
+            // 检查是否超过最大内存大小
+            if (model.fileSize > tzImagePickerVc.maxImagesValume) {
+                NSString *fileSizeString = [[TZImageManager manager] getBytesFromDataLength:tzImagePickerVc.maxImagesValume];
+                NSString *title = [NSString stringWithFormat:@"当前选择图片超过%@，请选择其它图片", fileSizeString];
+                [tzImagePickerVc showAlertWithTitle:title];
+            } else if (tzImagePickerVc.selectedModels.count < tzImagePickerVc.maxImagesCount) {
                 if (tzImagePickerVc.maxImagesCount == 1 && !tzImagePickerVc.allowPreview) {
                     model.isSelected = YES;
                     [tzImagePickerVc addSelectedModel:model];
