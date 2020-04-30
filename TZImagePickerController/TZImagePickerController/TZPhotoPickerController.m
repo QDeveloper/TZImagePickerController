@@ -572,7 +572,7 @@ static CGFloat itemMargin = 5;
             // 检查是否超过最大内存大小
             if (model.fileSize > tzImagePickerVc.maxImagesValume) {
                 NSString *fileSizeString = [[TZImageManager manager] getBytesFromDataLength:tzImagePickerVc.maxImagesValume];
-                NSString *title = [NSString stringWithFormat:@"当前选择图片超过%@，请选择其它图片", fileSizeString];
+                NSString *title = [NSString stringWithFormat:@"不能选择超过%@的图片", fileSizeString];
                 [tzImagePickerVc showAlertWithTitle:title];
             } else if (tzImagePickerVc.selectedModels.count < tzImagePickerVc.maxImagesCount) {
                 if (tzImagePickerVc.maxImagesCount == 1 && !tzImagePickerVc.allowPreview) {
