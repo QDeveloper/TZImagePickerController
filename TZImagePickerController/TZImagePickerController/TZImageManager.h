@@ -120,6 +120,8 @@
 
 - (TZAssetModel *)createModelWithAsset:(PHAsset *)asset;
 
+- (NSString *)getBytesFromDataLength:(NSInteger)dataLength;
+
 @end
 
 //@interface TZSortDescriptor : NSSortDescriptor

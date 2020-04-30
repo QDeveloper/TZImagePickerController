@@ -263,6 +263,7 @@
 }
 
 - (void)configDefaultSetting {
+    self.maxImagesValume = LONG_MAX;
     self.timeout = 15;
     self.photoWidth = 828.0;
     self.photoPreviewMaxWidth = 600;
